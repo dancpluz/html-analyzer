@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class HtmlAnalyzer {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferReader = new BufferedReader(new InputStreamReader(System.in));
-        String result = analyzeHTML(bufferReader.readLine());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String result = analyzeHTML(reader.readLine());
         System.out.println(result);
     }
 
@@ -82,3 +83,38 @@ public class HtmlAnalyzer {
         }
     }
 }
+
+// Estrutura simplificada de árvore não binária com a tag/texto da linha de html e um lista de filhos
+class TreeNode{
+        String tagName;
+        ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+
+        TreeNode(String data){
+            tagName = data;
+        }
+        
+    // Função que retorna o ramo mais profundo da Árvore
+    public TreeNode deepest() {
+        // Listas para guardar a maior profundidade vista e a Árvore mais profunda
+        int[] maxDepth = new int[]{0};
+        TreeNode[] deepestNode = new TreeNode[]{null};
+        
+        // Chama a função recursiva para a raiz da Árvore, profundidade 0
+        findDeepest(this, 0, maxDepth, deepestNode);
+        return deepestNode[0];
+    }
+    
+    // Função recursiva para passar pela Árvore e verificar a maior profundidade
+    private void findDeepest(TreeNode node, int depth, int[] maxDepth, TreeNode[] deepestNode) {
+        // Se o Node atual for mais profundo já visto, atualize
+        if (depth > maxDepth[0]) {
+            maxDepth[0] = depth;
+            deepestNode[0] = node;
+        }
+        
+        // Chamada recursiva para todos os filhos do Node
+        for (TreeNode child : node.children) {
+            findDeepest(child, depth + 1, maxDepth, deepestNode);
+        }
+    }
+} 
