@@ -1,13 +1,13 @@
 package HtmlAnalyzer;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-// Estrutura simplificada de árvore não binária com a tag/texto da linha de html e a lista de filhos
+// Estrutura simplificada de árvore não binária com a tag/texto da linha de html e um lista de filhos
 public class TreeNode{
         String tagName;
-        List<TreeNode> children = new LinkedList<>();
+        ArrayList<TreeNode> children = new ArrayList<TreeNode>();
 
         TreeNode(String data){
             tagName = data;
@@ -47,7 +47,7 @@ public class TreeNode{
             int len = queue.size();
             for(int i=0;i<len;i++) {
                 TreeNode node = queue.poll();
-                System.out.print(node.tagName + " ");
+                System.out.print(node.tagName + " | ");
                 for (TreeNode item : node.children) {
                     queue.offer(item);
                 }
