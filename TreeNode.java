@@ -37,8 +37,8 @@ public class TreeNode{
             findDeepest(child, depth + 1, maxDepth, deepestNode);
         }
     }
-    
     // Função para printar a árvore, por questões de debug
+    /*
     public static void printTree(TreeNode root){
         if(root == null) return;
         Queue<TreeNode> queue = new LinkedList<>();
@@ -54,5 +54,5 @@ public class TreeNode{
             }
             System.out.println();
         }
-    }
-}
+    }*/
+} 
