@@ -1,8 +1,6 @@
 package HtmlAnalyzer;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 // Estrutura simplificada de árvore não binária com a tag/texto da linha de html e um lista de filhos
 public class TreeNode{
@@ -37,22 +35,4 @@ public class TreeNode{
             findDeepest(child, depth + 1, maxDepth, deepestNode);
         }
     }
-    // Função para printar a árvore, por questões de debug
-    /*
-    public static void printTree(TreeNode root){
-        if(root == null) return;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()) {
-            int len = queue.size();
-            for(int i=0;i<len;i++) {
-                TreeNode node = queue.poll();
-                System.out.print(node.tagName + " | ");
-                for (TreeNode item : node.children) {
-                    queue.offer(item);
-                }
-            }
-            System.out.println();
-        }
-    }*/
 } 
