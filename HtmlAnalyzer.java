@@ -38,7 +38,7 @@ public class HtmlAnalyzer {
             line = line.trim();
             int j = line.indexOf('<');
             
-            // Caso a linha não tenha uma tag, adiciona com filho da raiz
+            // Caso a linha seja somente texto, adiciona com filho da raiz e pula
             if (j == -1) {
                 root.children.add(new TreeNode(line));
                 continue;
@@ -58,7 +58,7 @@ public class HtmlAnalyzer {
                 stack.push(root);
                 root = new TreeNode(fullTag);
                 
-            // Se a tag for de fechamento
+            // Se a tag for de fechamento ou somente texto
             } else {
                 // Se o topo da pilha de tags não for igual a tag atual, erro (tag never opened or mismatched tags)
                 if (!pastTags.peek().equals(tag)) return "malformed HTML";
