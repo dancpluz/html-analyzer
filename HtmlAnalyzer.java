@@ -23,7 +23,7 @@ public class HtmlAnalyzer {
 
         // BufferedReader para ler cada linha do código
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        // Pilha de Árvores para gerar a Árvore completa
+        // Pilha de árvores para gerar a árvore completa
         Stack<TreeNode> stack = new Stack<>();
         // Pilha de tags anteriores para identificar erros de código html
         Stack<String> pastTags = new Stack<>();
@@ -49,20 +49,23 @@ public class HtmlAnalyzer {
             boolean closeTag = fullTag.charAt(1) == '/';
             String tag = closeTag ? fullTag.substring(2,fullTag.length()-1) : fullTag.substring(1,fullTag.length()-1);      
             
-            // Se a tag for de abertura adiciona na pilha de tags
+            // Se a tag for de abertura
             if (!closeTag) {
+                // Adiciona na pilha de tags
                 pastTags.push(tag);
                 
-                // Caso a tag seja de abertura adiciona na pilha de árvores e cria uma nova raiz com a tag atual
+                // Adiciona na pilha de árvores e cria uma nova raiz com a tag atual
                 stack.push(root);
                 root = new TreeNode(fullTag);
+                
+            // Se a tag for de fechamento
             } else {
-                // Se o topo da pilha de tags não for igual a tag atual, erro (never opened or mismatched tags)
+                // Se o topo da pilha de tags não for igual a tag atual, erro (tag never opened or mismatched tags)
                 if (!pastTags.peek().equals(tag)) return "malformed HTML";
                 pastTags.pop();
                 if (stack.isEmpty()) break;
                 
-                // Caso a tag seja de fechamento, adiciona a raiz atual como filha da árvore do topo e muda a raiz para ela
+                // Adiciona a raiz atual como filha da árvore do topo e muda a raiz para ela
                 stack.peek().children.add(root);
                 root = stack.peek();
                 stack.pop();
@@ -81,27 +84,27 @@ public class HtmlAnalyzer {
     }
 }
 
-// Estrutura simplificada de árvore não binária com a tag/texto da linha de html e um lista de filhos
+// Estrutura simplificada de árvore não binária com a tag/texto da linha de html e uma lista de filhos
 class TreeNode{
         String tagName;
-        ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+        ArrayList<TreeNode> children = new ArrayList<>();
 
         TreeNode(String data){
             tagName = data;
         }
         
-    // Função que retorna o ramo mais profundo da Árvore
+    // Função que retorna o ramo mais profundo da árvore
     public TreeNode deepest() {
-        // Listas para guardar a maior profundidade vista e a Árvore mais profunda
+        // Listas para guardar a maior profundidade vista e a árvore mais profunda
         int[] maxDepth = new int[]{0};
         TreeNode[] deepestNode = new TreeNode[]{null};
         
-        // Chama a função recursiva para a raiz da Árvore, profundidade 0
+        // Chama a função recursiva para a raiz da árvore, profundidade 0
         findDeepest(this, 0, maxDepth, deepestNode);
         return deepestNode[0];
     }
     
-    // Função recursiva para passar pela Árvore e verificar a maior profundidade
+    // Função recursiva para passar pela árvore e verificar a maior profundidade
     private void findDeepest(TreeNode node, int depth, int[] maxDepth, TreeNode[] deepestNode) {
         // Se o Node atual for mais profundo já visto, atualize
         if (depth > maxDepth[0]) {
