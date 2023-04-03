@@ -1,10 +1,8 @@
-EASTER_EGG_URLS
-
-# Code Challenge for Axur Software Development Internship
+# HtmlAnalyzer
 
 ## Objective
 
-Develop a Java program that gets the deepest HTML text snippet of an URL
+Java program that gets the deepest HTML text snippet of an URL
 
 ## Considerations
 
